@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html data-bs-theme="dark">
+  <script src="../../../resources/bootstrap/bootstrap.js"></script>
+  <script src="../../../resources/js/common.js"></script>
+
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../../resources/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="../../../resources/css/common.css">
+    <link rel="stylesheet" href="main.css">
+    <title>Guilty Gear -Strive- Tracker</title>
+  </head>
+  
+  <body>
+    <div class="header">
+      <h3>Guilty Gear -Strive- Tracker</h1>
+      <p>
+        A tracker for Guilty Gear -Strive-, with <a href="http://ratingupdate.info" target="_blank">RATING UPDATE</a> integration.<br>
+        This project is open source. See it on <a href="https://github.com/KuromeSama6/ggst-tracker" target="_blank">Github</a>.
+      </p>
+    </div>
+
+    <div id="status-container" class="container" style="text-align: center;">
+      <div id="status-username-input" class="align-middle" hidden>
+        <h4>First Time Setup</h4>
+        <p>
+          Enter your username as it appears in-game.<br>
+          This will be used to acquire your data from RatingUpdate.
+        </p>
+        <form class="row g-1 justify-content-center" action="javascript:void(0)">
+          <div class="col-auto">
+            <input type="text" class="form-control" id="!setup-input-username" placeholder="Username">
+          </div>
+          <div class="col-auto" id="setup-input-container">
+            <button type="submit" class="btn btn-primary mb-3" id="@setup-input-username">Lookup Username</button>
+            <button type="submit" class="btn btn-primary mb-3" id="@setup-input-ratingid">Lookup RatingID</button>
+            <div id="setup-input-loading" class="spinner-border" role="status" hidden>
+            </div>
+          </div>
+          <p class="small text-danger" id="$setup-input-errormsg" hidden>test</p>
+          <p class="small text-muted">
+            If your username doesn't work, try using your Rating ID.<br>
+            Your Rating ID is found in your account's Rating Update page's URL.<br><br>
+            For example, for <code>http://ratingupdate.info/player/311F886E3ACC742/RA</code>, the Rating ID is <code>311F886E3ACC742</code>.
+          </p>
+        </form>
+      </div>
+
+      <div id="status-username-confirm" hidden>
+        <h4>Is this you?</h4>
+        <p>
+          Rating ID: <code><b id="$setup-username-confirm-ratingid">#RATINGID?</b></code><br>
+          Username: <span><b id="$setup-username-confirm-username">#USERNAME?</b></span><br><br>
+          Characters you've played: <br>
+          <span><b id="$setup-username-confirm-characters">#CHR1?, #CHR2?, #CHR3?, #CHR4?...</b></span>
+        </p>
+        <button type="submit" class="btn btn-success mb-3" id="@setup-username-confirm-y">Yes, proceed with setup</button>
+        <br>
+        <button type="submit" class="btn btn-danger mb-3" id="@setup-username-confirm-n">No, return to account search</button>
+      </div>
+
+      <div id="status-loading" hidden>
+        <h4 id="$status-loading-title">LOADING</h4>
+        <p id="$status-loading-content"></p>
+      </div>
+
+    </div>
+  </body>
+</html>
+
+<script src="main.js"></script>

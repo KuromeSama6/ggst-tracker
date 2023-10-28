@@ -1,0 +1,21 @@
+{
+  "name": "ggst-tracker",
+  "version": "1.0.0",
+  "description": "GGST Tracker with RatingUpdate.info intergration",
+  "main": "main.js",
+  "scripts": {
+    "test-rating-conn": "node tests/rating_axios.js",
+    "test-data": "node tests/framedata.js",
+    "dev": "npx electronmon ."
+  },
+  "author": "KuromeSama6",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^27.0.2",
+    "electronmon": "^2.0.2"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "node-html-parser": "^6.1.11"
+  }
+}

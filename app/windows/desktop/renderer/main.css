@@ -1,0 +1,18 @@
+body {
+    background-color: #171717;
+}
+
+a {
+    color: #c00;
+}
+
+.header {
+    background-color: #811104;
+    text-align: center;
+    padding: 1em;
+    color: white;
+}
+
+#status-container {
+    padding-top: 5vh;
+}

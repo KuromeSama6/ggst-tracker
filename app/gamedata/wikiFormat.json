@@ -1,0 +1,15 @@
+{
+    "moveTable_schema": [
+        "input", "name", "damage", "guard", "startup", "active",
+        "recovery", "onBlock", "onHit", "level", "counterType",
+        "invuln", "proration", "riscGain", "rsicLoss"
+    ],
+
+    "gatlingTable_schema": [
+        "input", "P", "K", "S", "H", "D", "Cancel"
+    ],
+
+    "use_section8_gatling": [
+        "BE", "HA", "JC", "JO", "TE"
+    ]
+}
