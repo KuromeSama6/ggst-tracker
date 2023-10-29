@@ -4,8 +4,10 @@
   "description": "GGST Tracker with RatingUpdate.info intergration",
   "main": "main.js",
   "scripts": {
-    "test-rating-conn": "node tests/rating_axios.js",
+    "test-rating": "node tests/rating.js",
     "test-data": "node tests/framedata.js",
+    "test-ocr": "node tests/ocr.js",
+    "test-fuzzymatch": "node tests/fuzzymatch.js",
     "dev": "npx electronmon ."
   },
   "author": "KuromeSama6",
@@ -16,6 +18,12 @@
   },
   "dependencies": {
     "axios": "^1.6.0",
-    "node-html-parser": "^6.1.11"
+    "canvas": "^2.11.2",
+    "find-process": "^1.4.7",
+    "fuzzbunny": "^1.0.1",
+    "node-html-parser": "^6.1.11",
+    "node-native-ocr": "^0.3.9",
+    "sharp": "^0.32.6",
+    "tesseract.js": "^5.0.2"
   }
 }

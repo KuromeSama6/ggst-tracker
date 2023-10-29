@@ -1,0 +1,22 @@
+body {
+    background-color: #171717ee;
+}
+
+a {
+    color: #c00;
+}
+
+.content-box {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    margin-left: 2em;
+    margin-right: 2em;
+}
+
+.rcode-error {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    background-color: #cb0000ee;
+    position: absolute;
+    top: 0
+}

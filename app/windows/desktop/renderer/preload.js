@@ -1,16 +1,16 @@
 const { contextBridge, ipcRenderer } = require("electron");
 
 const upstream = { 
-    async SetupSubmitUsername(username) {
-        return await ipcRenderer.invoke("SetupSubmitUsername", username);
+    async SetupSubmitUsername(...args) {
+        return await ipcRenderer.invoke("SetupSubmitUsername", ...args);
     },
 
-    async ConfirmAccount(ratingId) {
-        return await ipcRenderer.invoke("ConfirmAccount", ratingId);
+    async ConfirmAccount(...args) {
+        return await ipcRenderer.invoke("ConfirmAccount", ...args);
     },
 
-    async RequestSetupProgress() {
-        return await ipcRenderer.invoke("RequestSetupProgress");
+    async RequestSetupProgress(...args) {
+        return await ipcRenderer.invoke("RequestSetupProgress", ...args);
     }
     
 }

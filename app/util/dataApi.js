@@ -21,7 +21,7 @@ module.exports = {
     },
 
     async GetMissingFrameData() {
-        if (!_fs.existsSync(DATA_DIR)) return null;
+        if (!_fs.existsSync(DATA_DIR)) return Object.keys(await this.GetChrNames());
 
         var ret = [];
         const dirCodes = (await fs.readdir(DATA_DIR)).map(c => path.basename(c).split(".")[0].toUpperCase());
@@ -42,17 +42,14 @@ module.exports = {
     },
 
     async DownloadOne(chrCode) {
+        if (!_fs.existsSync(DATA_DIR)) await fs.mkdir(DATA_DIR, {recursive: true});
+
         const chrNameData = (await this.GetChrNames())[chrCode.toUpperCase()];
         if (!chrNameData) return null;
         const chrName = chrNameData.callname;
         
         var res;
-        try {
-            res = await axios.get(`https://www.dustloop.com/w/GGST/${chrName}/Frame_Data`);
-        } catch (err) {
-            console.log(err.stack);
-            return null;
-        }
+        res = await axios.get(`https://www.dustloop.com/w/GGST/${chrName}/Frame_Data`);
         
         const data = parser.parse(res.data);
         var frameData = {};

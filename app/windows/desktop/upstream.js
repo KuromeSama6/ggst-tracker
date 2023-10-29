@@ -28,28 +28,20 @@ ipcMain.handle("SetupSubmitUsername", async (e, username, isRatingId) => {
 });
 
 // Setup: username confirmed
-ipcMain.handle("ConfirmAccount", async (e, ratingId) => {
+ipcMain.handle("ConfirmAccount", async (e, ratingId, username) => {
     const controller = require("./controller");
     
     console.log(`Confirming account with RatingID ${ratingId}`);
-    await controller.SaveAccount(ratingId);
+    await controller.SaveAccount(ratingId, username);
 
     // frame data
-    if (!await dataApi.CheckDataIntegrity()) await controller.DownloadFrameData(true);
+    if (!await dataApi.CheckDataIntegrity()) await controller.DownloadFrameData();
 
 });
 
 // Setup: request setup progress
-ipcMain.handle("RequestSetupProgress", async e => {
+ipcMain.handle("RequestSetupProgress", async (e, isFirst) => {
     const controller = require("./controller");
 
-    // fresh start
-    if (!fs.existsSync(settingsDriver.SETTINGS_PATH)) return 0;
-    // missing frame data
-    if (!await dataApi.CheckDataIntegrity()) {
-        controller.DownloadFrameData(false);
-        return 1;
-    }
-
-    return 2;
+    return await controller.GetSetupProgress(isFirst);
 });

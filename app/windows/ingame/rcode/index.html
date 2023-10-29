@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html data-bs-theme="dark">
+  <script src="../../../resources/bootstrap/bootstrap.js"></script>
+  <script src="../../../resources/js/common.js"></script>
+
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../../resources/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="../../../resources/css/common.css">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="../ingame.css">
+    <title>P2</title>
+  </head>
+  
+  <body>
+    <div id="rcode-content" class="container" style="padding-top: 1em; text-align: center;">
+      <h1 id="$username" style="font-weight: bold;">#USERNAME?</h1>
+      <h2 id="$chr">#CHARACTER?</h2>
+
+      <div class="row content-box">
+        <b>Rating Information</b>
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Rating</th>
+                <th scope="col">Highest</th>
+                <th scope="col">Achieved on</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td id="$elo" class="text-info" style="font-weight: bold;">#ELO?</td>
+                <td id="$elo-hi">#ELO_HI?</td>
+                <td id="$elo-hi-ach">#ACH?</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+      <div class="row content-box">
+        <b>Matchup Information</b>
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Against</th>
+                <th scope="col">Wins/Plays</th>
+                <th scope="col">WR%</th>
+                <th scope="col">Rating Offset</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Overall</td>
+                <td id="$mu-overall-wl">#WL?</td>
+                <td id="$mu-overall-wr">#WR?</td>
+                <td>-</td>
+              </tr>
+              <tr>
+                <td id="$mu-chr" class="text-danger" style="font-weight: bold;">#CHR?</td>
+                <td id="$mu-chr-wl">#WL?</td>
+                <td id="$mu-chr-wr">#WR?</td>
+                <td id="$mu-chr-elo">#ELO?</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+      <div class="row content-box">
+        <b>Estimated Win Chance</b>
+        <h1 style="border: 2px dashed white;" id="$elo-winchance">-100%</h1>
+        <small class="text-warning">
+            This estimation is in no way accurate. It is merely an calculation based on RatingUpdate's ELO ratings.
+            <br>
+            Both GGST's rating system and RatingUpdate are known to be extremely inaccurate.
+        </small>
+      </div>
+    </div>
+
+    <div id="rcode-error-box" class="container rcode-error" hidden>
+        <b>Error</b>
+        <p>There was an error loading this player's R-Code.</p>
+        <p>Cause: <code id="rcode-error-msg">#DETAILS_NOT_IMPLEMENTED!</code></p>
+    </div>
+    
+  </body>
+</html>
+
+<script src="main.js"></script>

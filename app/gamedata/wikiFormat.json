@@ -2,7 +2,7 @@
     "moveTable_schema": [
         "input", "name", "damage", "guard", "startup", "active",
         "recovery", "onBlock", "onHit", "level", "counterType",
-        "invuln", "proration", "riscGain", "rsicLoss"
+        "invuln", "proration", "riscGain", "riscLoss"
     ],
 
     "gatlingTable_schema": [

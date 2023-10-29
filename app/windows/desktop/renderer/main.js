@@ -1,4 +1,5 @@
 var effectiveRatingId = "";
+var currentProgress = null;
 
 $g("@setup-input-username").addEventListener("click", () => {
     SubmitUsername(false);
@@ -49,7 +50,7 @@ async function SubmitUsername(isRatingId) {
 }
 
 async function ConfirmAccount(ratingId = effectiveRatingId) {
-    upstream.ConfirmAccount(ratingId);
+    upstream.ConfirmAccount(ratingId, $g("$setup-username-confirm-ratingid").innerText);
 }
 
 function SetActiveBlock(id) {
@@ -58,8 +59,12 @@ function SetActiveBlock(id) {
     ele.hidden = false;
 }
 
-upstream.RequestSetupProgress().then(progress => {
-    console.log(`Setup progress: ${progress}`)
+async function RequestSetupProgressUpdate(isFirst = false) {
+    var progress = await upstream.RequestSetupProgress(isFirst);
+    if (currentProgress == progress) return;
+
+    console.log(`update progress: ${progress}`);
+    currentProgress = progress;
 
     switch (progress) {
         case 0:
@@ -69,9 +74,13 @@ upstream.RequestSetupProgress().then(progress => {
         case 1:
             SetActiveBlock("status-loading");
             break;
-    }
-});
 
-// TODO Get setup progress from upstream
-//SetActiveBlock("status-username-input");
-//SetActiveBlock("status-loading");
+        case 2:
+            SetActiveBlock("status-ready");
+            break;
+    }
+}
+RequestSetupProgressUpdate(true);
+setInterval(RequestSetupProgressUpdate, 100);
+
+// SetActiveBlock("status-ready");

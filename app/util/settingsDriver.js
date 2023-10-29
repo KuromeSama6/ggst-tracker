@@ -32,7 +32,7 @@ module.exports = {
         current[key] = value;
     },
 
-    Read(key) {
-        return current[key];
+    Read(key, def = null) {
+        return current[key] || def;
     }
 }

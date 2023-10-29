@@ -4,6 +4,7 @@ const path = require("path");
 const _fs = require("fs");
 const dataApi = require('../../util/dataApi');
 const fs = _fs.promises;
+const procfind = require("find-process");
 
 const window = new BrowserWindow({
     icon: "resources/favicon.png",
@@ -25,9 +26,6 @@ const window = new BrowserWindow({
 window.loadFile(path.join(__dirname, "renderer/index.html"));
 window.setMenu(null);
 
-// open dev tools
-window.webContents.openDevTools({mode: "detach"});
-
 // set behavior for opening new files
 window.webContents.setWindowOpenHandler(({url}) => {
 	require('electron').shell.openExternal(url);
@@ -37,6 +35,24 @@ window.webContents.setWindowOpenHandler(({url}) => {
 // register listeners
 require("./upstream");
 
+// check for game status
+setInterval(async () => {
+    if (await module.exports.GetSetupProgress(false) != 2) return;
+
+    const proc = await procfind("name", "GGST.exe");
+	if (window.isVisible() && Object.keys(proc).length) {
+		// launch the game badge
+		window.hide();
+		require("../ingame/controller");
+
+	} else if (!window.isVisible() && !Object.keys(proc).length) {
+		// show the main window
+		window.show();
+		require("../ingame/controller").close();
+	}
+
+}, 1000);
+
 // methods
 module.exports = {
 	window: window,
@@ -45,12 +61,13 @@ module.exports = {
 		this.window.webContents.send("UpdateLoadingProgress", title, content);
 	},
 	
-	async SaveAccount(ratingId) {
+	async SaveAccount(ratingId, username) {
     	this.UpdateSetupProgress("Writing RatingID", `Updating account information`);
 		
 		// write
 		await settingsDriver.Open();
 		settingsDriver.Write("ratingId", ratingId);
+		settingsDriver.Write("username", username);
 		await settingsDriver.Close();
 
 	},
@@ -75,8 +92,22 @@ module.exports = {
 			} catch (e) {
 				console.error(`Download fail: ${chrCode}`);
 				console.warn(e.stack);
+
+				this.UpdateSetupProgress(`Download Error`, `Character: ${chrCode}<br><code>${e}</code><br>See main process log for details. Restart app to reattempt.`)
+				return;
 			}
 			
         }
-	}
+	},
+
+    async GetSetupProgress(downloadFrameData) {
+        if (!_fs.existsSync(settingsDriver.SETTINGS_PATH)) return 0;
+        // missing frame data
+        if (!await dataApi.CheckDataIntegrity()) {
+            if (downloadFrameData) this.DownloadFrameData(false);
+            return 1;
+        }
+
+        return 2;
+    }
 }
